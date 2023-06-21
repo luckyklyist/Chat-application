@@ -1,9 +1,12 @@
 import express from 'express'
-import { config } from 'dotenv'
+import config  from 'config'
+import {createServer} from 'http'
+import { Server } from 'socket.io';
 
 const app=express();
-const PORT=3001;
+const server=createServer(app);
+const PORT=config.get<number>("port");
 
 app.get('/',(_,res)=>res.send("Server running ... !"))
 
-app.listen(PORT,()=>console.log(`Server running at the port ${PORT}`))
+server.listen(PORT,()=>console.log(`Server running at the port ${PORT}`))
